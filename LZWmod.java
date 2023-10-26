@@ -29,28 +29,33 @@ public class LZWmod {
 
         //initialize the current string
         StringBuilder current = new StringBuilder();
+
         //read and append the first char
         char c = BinaryStdIn.readChar();
         current.append(c);
         Integer codeword = st.get(current);
+
         while (!BinaryStdIn.isEmpty()) {
             codeword = st.get(current);
+            //TODO: read and append the next char to current
             char next = BinaryStdIn.readChar();
             current.append(next);
-            //TODO: read and append the next char to current
 
             if(!st.contains(current)){
-                BinaryStdOut.write(codeword, W);
-                if (code < L)    // Add to symbol table if not full
-                    st.put(current, code++);
-                current.setLength(0);
+              BinaryStdOut.write(codeword, W);
+              if (code < L)    // Add to symbol table if not full
+                  st.put(current, code++);
+              char Reset = current.charAt(current.length()-1);    
               //TODO: reset current
+              current.setLength(0);
+              current.append(Reset);
             }
         }
-        BinaryStdOut.write(codeword);
+
         //TODO: Write the codeword of whatever remains
         //in current
-
+        BinaryStdOut.write(st.get(current),W);
+        
         BinaryStdOut.write(R, W); //Write EOF
         BinaryStdOut.close();
     }
